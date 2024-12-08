@@ -1,0 +1,21 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+    environment: development
+storage:
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+  secret: asecretforlocaldevelopment
+  relativeurls: false
+  tls:
+    certificate: /certs/registry-1.docker.io/domain.crt
+    key: /certs/registry-1.docker.io/domain.key
+proxy:
+  remoteurl: https://registry-1.docker.io

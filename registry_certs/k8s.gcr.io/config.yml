@@ -1,0 +1,21 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+    environment: development
+storage:
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: :5003
+  headers:
+    X-Content-Type-Options: [nosniff]
+  secret: asecretforlocaldevelopment
+  relativeurls: false
+  tls:
+    certificate: /certs/k8s.gcr.io/domain.crt
+    key: /certs/k8s.gcr.io/domain.key
+proxy:
+  remoteurl: https://k8s.gcr.io

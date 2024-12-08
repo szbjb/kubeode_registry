@@ -1,0 +1,63 @@
+{
+    # 全局选项块
+    email you@example.com
+         log {
+             output stdout
+             level DEBUG
+         }
+}
+
+https://registry-1.docker.io:443 {
+    tls /certs/registry-1.docker.io/domain.crt /certs/registry-1.docker.io/domain.key
+    reverse_proxy localhost:5000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+https://ghcr.io:443 {
+    tls /certs/ghcr.io/domain.crt /certs/ghcr.io/domain.key
+    reverse_proxy localhost:5001 {
+        header_up Host ghcr.io
+        header_up X-Real-IP {remote}
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+https://quay.io:443 {
+    tls /certs/quay.io/domain.crt /certs/quay.io/domain.key
+    reverse_proxy localhost:5002 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+https://k8s.gcr.io:443 {
+    tls /certs/k8s.gcr.io/domain.crt /certs/k8s.gcr.io/domain.key
+    reverse_proxy localhost:5003 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+https://registry.k8s.io:443 {
+    tls /certs/registry.k8s.io/domain.crt /certs/registry.k8s.io/domain.key
+    reverse_proxy localhost:5004 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}

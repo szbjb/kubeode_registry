@@ -1,0 +1,21 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+    environment: development
+storage:
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: :5001
+  headers:
+    X-Content-Type-Options: [nosniff]
+  secret: asecretforlocaldevelopment
+  relativeurls: false
+  tls:
+    certificate: /certs/ghcr.io/domain.crt
+    key: /certs/ghcr.io/domain.key
+proxy:
+  remoteurl: https://ghcr.io

@@ -1,0 +1,21 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+    environment: development
+storage:
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: :5002
+  headers:
+    X-Content-Type-Options: [nosniff]
+  secret: asecretforlocaldevelopment
+  relativeurls: false
+  tls:
+    certificate: /certs/quay.io/domain.crt
+    key: /certs/quay.io/domain.key
+proxy:
+  remoteurl: https://quay.io
