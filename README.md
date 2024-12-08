@@ -1,0 +1,1 @@
+# kubeode_registry
