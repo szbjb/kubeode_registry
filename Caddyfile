@@ -1,10 +1,10 @@
 {
     # 全局选项块
     email you@example.com
-         log {
-             output stdout
-             level DEBUG
-         }
+    log {
+        output stdout
+        level DEBUG
+    }
 }
 
 https://registry-1.docker.io:443 {

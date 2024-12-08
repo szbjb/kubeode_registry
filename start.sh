@@ -3,12 +3,12 @@ set +x
 
 # 函数：检查网络连接
 check_network() {
-  local url=$1
-  if curl -s --head --request GET --max-time 3 $url ; then
-    echo "Internet is available for $url"
+  local test_url="https://www.google.com"
+  if curl -s --head --request GET --max-time 3 $test_url ; then
+    echo "Internet is available for $test_url"
     return 0
   else
-    echo "Internet is not available for $url"
+    echo "Internet is not available for $test_url"
     return 1
   fi
 }
@@ -16,15 +16,18 @@ check_network() {
 # 函数：启动 Registry 实例
 start_registry() {
   local config_path=$1
-  local proxy_url=$2
+  local proxy_name=$(basename $(dirname $config_path))
 
-  if check_network $proxy_url; then
+  if check_network; then
     echo "Starting registry with proxy mode using $config_path"
     exec registry serve $config_path &
   else
-    echo "Starting registry in offline mode using $config_path"
-    sed '/proxy:/,/remoteurl:/d' $config_path > /tmp/$(basename $config_path)_offline.yml
-    exec registry serve /tmp/$(basename $config_path)_offline.yml &
+    local offline_config_dir="/tmp/$proxy_name"
+    mkdir -p $offline_config_dir
+    local offline_config_path="$offline_config_dir/$(basename $config_path)_offline.yml"
+    echo "Starting registry in offline mode using $offline_config_path"
+    sed '/proxy:/,/remoteurl:/d' $config_path > $offline_config_path
+    exec registry serve $offline_config_path &
   fi
 }
 
@@ -41,11 +44,15 @@ update-ca-certificates
 mkdir -p /var/log
 
 # 启动不同的 Registry 实例
-start_registry "/certs/ghcr.io/config.yml" "https://ghcr.io"
-start_registry "/certs/k8s.gcr.io/config.yml" "https://k8s.gcr.io"
-start_registry "/certs/quay.io/config.yml" "https://quay.io"
-start_registry "/certs/registry-1.docker.io/config.yml" "https://registry-1.docker.io"
-start_registry "/certs/registry.k8s.io/config.yml" "https://registry.k8s.io"
+start_registry "/certs/ghcr.io/config.yml"
+start_registry "/certs/k8s.gcr.io/config.yml"
+start_registry "/certs/quay.io/config.yml"
+start_registry "/certs/registry-1.docker.io/config.yml"
+start_registry "/certs/registry.k8s.io/config.yml"
+
+# 启动 kubeode.registry.local 的 Registry 实例
+echo "Starting registry for kubeode.registry.local"
+exec registry serve /certs/kubeode.registry.local/config.yml &
 
 # 启动 Caddy
 start_caddy
