@@ -1,5 +1,12 @@
 #!/bin/sh
-set +x 
+set +x
+
+# 函数：更新 CA 证书
+update_ca_certificates() {
+  echo "Updating CA certificates..."
+  find /certs -name domain.crt -exec sh -c 'cp "$1" "/usr/local/share/ca-certificates/$(basename $(dirname "$1")).crt"' _ {} \;
+  update-ca-certificates
+}
 
 # 函数：检查网络连接
 check_network() {
@@ -38,7 +45,7 @@ start_caddy() {
 }
 
 # 更新 CA 证书
-update-ca-certificates
+update_ca_certificates
 
 # 确保日志目录存在
 mkdir -p /var/log

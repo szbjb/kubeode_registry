@@ -4,7 +4,7 @@ log:
     service: registry
 storage:
   cache:
-    blobdescriptor: inmemory
+    blobdescriptor: file
   filesystem:
     rootdirectory: /var/lib/registry
 http:
