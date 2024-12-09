@@ -13,9 +13,7 @@ RUN apk update && \
 COPY registry_certs /certs
 
 # 添加所有证书到信任存储
-RUN for cert in /certs/*/*/domain.crt; do \
-        cp "$cert" "/usr/local/share/ca-certificates/$(basename $(dirname "$cert")).crt"; \
-    done && \
+RUN find /certs -name domain.crt -exec cp {} /usr/local/share/ca-certificates/{}.crt \; && \
     update-ca-certificates
 
 # 复制其他文件
