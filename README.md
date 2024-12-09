@@ -15,7 +15,7 @@ docker run -d \
   --network bridge \
   -p 443:443 \
   -p 6000:6000 \
-  -v /usr/local/kubeode/package/offline/Images/data_registry:/var/lib/registry \
+  -v ./data_registry:/var/lib/registry \
   --dns 8.8.8.8 \
   --dns 114.114.114.114 \
   --memory 512m \
@@ -44,7 +44,7 @@ docker run -d \
 
 ## 持久化存储
 
-镜像数据存储在主机的 `/usr/local/kubeode/package/offline/Images/data_registry` 目录，确保数据在容器重启或删除后依然保留。
+镜像数据存储在主机的 `./data_registry` 目录，确保数据在容器重启或删除后依然保留。
 
 ## DNS 配置
 
