@@ -9,7 +9,7 @@ ST = State
 L = City
 O = Organization
 OU = Department
-CN = registry.k8s.io
+CN = kubeode.registry.local
 
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
@@ -17,4 +17,12 @@ extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = registry.k8s.io
+DNS.1 = kubeode.registry.local
+DNS.2 = ghcr.io
+DNS.3 = k8s.gcr.io
+DNS.4 = quay.io
+DNS.5 = registry-1.docker.io
+DNS.6 = registry.k8s.io
+DNS.7 = registry.kubeode.down.local
+DNS.8 = kubeode.down.local
+DNS.9 = docker.io
