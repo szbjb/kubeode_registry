@@ -9,7 +9,7 @@ ST = State
 L = City
 O = Organization
 OU = Department
-CN = kubeode.registry.local
+CN = quay.io
 
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment

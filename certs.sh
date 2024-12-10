@@ -1,4 +1,22 @@
- cat > certs/kubeode.registry.local/openssl.cnf <<EOF
+
+domain="
+kubeode.registry.local
+ghcr.io
+k8s.gcr.io
+quay.io
+registry-1.docker.io
+registry.k8s.io
+registry.kubeode.down.local
+kubeode.down.local
+docker.io
+"
+
+for domain in $domain; do
+
+# 生成新的证书
+mkdir  -pv registry_certs/$domain/
+
+cat > registry_certs/$domain/openssl.cnf <<EOF
 [req]
 distinguished_name = req_distinguished_name
 req_extensions = v3_req
@@ -10,7 +28,7 @@ ST = State
 L = City
 O = Organization
 OU = Department
-CN = kubeode.registry.local
+CN = $domain
 
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
@@ -31,10 +49,7 @@ EOF
 
 
 
-# 生成新的证书
-mkdir  -pv certs/kubeode.registry.local/
-openssl req -new -newkey rsa:4096 -nodes -sha256 -keyout certs/kubeode.registry.local/domain.key -x509 -days 365 -out certs/kubeode.registry.local/domain.crt -config certs/kubeode.registry.local/openssl.cnf -extensions v3_req
 
-# 将证书和密钥复制到registry_certs目录 
-cp certs/kubeode.registry.local/domain.crt registry_certs/
-cp certs/kubeode.registry.local/domain.key registry_certs/
+openssl req -new -newkey rsa:4096 -nodes -sha256 -keyout registry_certs/$domain/domain.key -x509 -days 365 -out registry_certs/$domain/domain.crt -config registry_certs/$domain/openssl.cnf -extensions v3_req
+
+done

@@ -9,7 +9,7 @@ ST = State
 L = City
 O = Organization
 OU = Department
-CN = ghcr.io
+CN = registry.kubeode.down.local
 
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
