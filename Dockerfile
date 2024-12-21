@@ -4,6 +4,9 @@ FROM registry:2
 # 切换到 root 用户以便安装软件包
 USER root
 
+# 设置默认工作目录为 /root
+WORKDIR /root
+
 # 安装 curl 并清理缓存
 RUN apk update && \
     apk add --no-cache curl caddy && \
