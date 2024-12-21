@@ -1,0 +1,21 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+    environment: development
+storage:
+  cache:
+    blobdescriptor: file
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+  secret: asecretforlocaldevelopment
+  relativeurls: false
+  tls:
+    certificate: /certs/docker.io/domain.crt
+    key: /certs/docker.io/domain.key
+proxy:
+  remoteurl: https://docker.io
