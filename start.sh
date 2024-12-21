@@ -55,6 +55,7 @@ start_registry "/certs/ghcr.io/config.yml"
 start_registry "/certs/k8s.gcr.io/config.yml"
 start_registry "/certs/quay.io/config.yml"
 start_registry "/certs/registry-1.docker.io/config.yml"
+start_registry "/certs/docker.io/config.yml"
 start_registry "/certs/registry.k8s.io/config.yml"
 
 # 启动 kubeode.registry.local 的 Registry 实例
