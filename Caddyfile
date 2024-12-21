@@ -18,6 +18,17 @@ https://registry-1.docker.io:443 {
     }
 }
 
+https://docker.io:443 {
+    tls /certs/docker.io/domain.crt /certs/docker.io/domain.key
+    reverse_proxy localhost:5005 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
 https://ghcr.io:443 {
     tls /certs/ghcr.io/domain.crt /certs/ghcr.io/domain.key
     reverse_proxy localhost:5001 {
