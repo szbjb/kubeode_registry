@@ -7,6 +7,16 @@
     }
 }
 
+https://kubeode.down.local:443 {
+    tls /certs/kubeode.down.local/domain.crt /certs/kubeode.down.local/domain.key
+    reverse_proxy localhost:5000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
 https://registry-1.docker.io:443 {
     tls /certs/registry-1.docker.io/domain.crt /certs/registry-1.docker.io/domain.key
     reverse_proxy localhost:5000 {
