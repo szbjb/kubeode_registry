@@ -19,3 +19,6 @@ http:
     key: /certs/k8s.gcr.io/domain.key
 proxy:
   remoteurl: https://k8s.gcr.io
+compatibility:
+    schema1:
+        enabled: true

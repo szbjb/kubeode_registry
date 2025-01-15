@@ -19,3 +19,6 @@ http:
     key: /certs/registry.k8s.io/domain.key
 proxy:
   remoteurl: https://registry.k8s.io
+compatibility:
+    schema1:
+        enabled: true

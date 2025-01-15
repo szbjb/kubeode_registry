@@ -19,3 +19,6 @@ http:
     key: /certs/docker.io/domain.key
 proxy:
   remoteurl: https://docker.io
+compatibility:
+    schema1:
+        enabled: true

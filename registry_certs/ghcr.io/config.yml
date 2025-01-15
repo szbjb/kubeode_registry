@@ -17,5 +17,8 @@ http:
   tls:
     certificate: /certs/ghcr.io/domain.crt
     key: /certs/ghcr.io/domain.key
+compatibility:
+    schema1:
+        enabled: true
 proxy:
   remoteurl: https://ghcr.io

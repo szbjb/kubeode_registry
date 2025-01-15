@@ -19,3 +19,6 @@ http:
     key: /certs/registry-1.docker.io/domain.key
 proxy:
   remoteurl: https://registry-1.docker.io
+compatibility:
+    schema1:
+        enabled: true
